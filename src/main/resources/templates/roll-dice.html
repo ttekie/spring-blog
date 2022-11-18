@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials/partial1.html :: head ('Roll-Dice')"></head>
+<body>
+  <nav th:replace="partials/partial1.html :: navbar-section"></nav>
+  <h2>Pick a number:</h2>
+  <ul>
+    <li><a href="/roll-dice/1">1</a></li>
+    <li><a href="/roll-dice/2">2</a></li>
+    <li><a href="/roll-dice/3">3</a></li>
+    <li><a href="/roll-dice/4">4</a></li>
+    <li><a href="/roll-dice/5">5</a></li>
+    <li><a href="/roll-dice/6">6</a></li>
+  </ul>
+  <div th:if="${userGuess}">
+    <p>You guessed <span th:text="${userGuess}"></span></p>
+    <p>The random number was <span th:text="${randomNumber}"></span></p>
+    <p th:if="${userGuess} == ${randomNumber}">You guessed right!</p>
+    <p th:if="${userGuess} != ${randomNumber}">You guessed wrong!</p>
+  </div>
+  <footer th:replace="partials/partial1.html :: footer-section"></footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+body {
+    height: 100vh;
+}
+nav {
+    background-color: dodgerblue;
+    color: white;
+}
+h1 {
+    text-align: center;
+}
+footer {
+    position: absolute;
+    width: 100%;
+    padding: 1rem 0;
+    bottom: 0;
+    background-color: dodgerblue;
+    color: white;
+    text-align: center;
+}
