@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/post")
 public class PostController {
 
     private final PostRepository postDao;
@@ -19,49 +19,23 @@ public class PostController {
         this.postDao = postDao;
     }
 
-    @GetMapping
+    @GetMapping("/create/all-post")
     public String allPosts(Model model) {
-//        Post post1 = new Post(1, "First", "This is my first post!");
-//        Post post2 = new Post(2, "Second", "Hey everyone, I'm back");
-//        List<Post> allPosts = new ArrayList<>(List.of(post1, post2));
-//        model.addAttribute("allPosts", allPosts);
         List<Post> posts = postDao.findAll();
         model.addAttribute("posts", posts);
-        return "/posts/index";
-    }
-
-    @GetMapping("/{id}")
-    public String onePost(@PathVariable long id, Model model) {
-        Post post1 = new Post(1, "First", "This is my first post!");
-        Post post2 = new Post(2, "Second", "Hey everyone, I'm back");
-        Post post3 = new Post(3, "Yo", "heye heye heyeee");
-        List<Post> allPosts = new ArrayList<>(List.of(post1, post2, post3));
-        Post post = null;
-        for(Post userPost : allPosts) {
-            if(userPost.getId() == id) {
-                post = userPost;
-            }
-        }
-        model.addAttribute("post", post);
-        return "posts/show";
+        return "posts/index";
     }
 
     @GetMapping("/create")
     public String createNewPost() {
-        return "/posts/create";
+        return "posts/create";
     }
 
     @PostMapping("/create")
     public String addNewPost(@RequestParam (name="title") String title, @RequestParam (name="body") String body) {
         Post post = new Post(title, body);
         postDao.save(post);
-        return "redirect:/posts/index";
-    }
-
-    @PostMapping("/create")
-    @ResponseBody
-    public String fourPost() {
-        return "view the form for creating a post!";
+        return "redirect:/post/create/all-post";
     }
 
 }
