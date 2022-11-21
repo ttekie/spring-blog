@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/posts")
 public class PostController {
+
+    private final PostRepository postDao;
+    // dependency injection
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
 
     @GetMapping
     public String allPosts(Model model) {
@@ -38,9 +45,8 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    @ResponseBody
     public String createPost() {
-        return "posts index page!";
+        return "/posts/create";
     }
 
     @GetMapping("/posts")
