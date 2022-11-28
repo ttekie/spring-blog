@@ -11,4 +11,10 @@
     </div>
     <p th:unless="${post}">Could not find post</p>
 </body>
+
+<h2>User Information</h2>
+<div>
+    <p th:text="${post.user.username}"></p>
+    <p th:text="${post.user.email}"></p>
+</div>
 </html>

@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -45,9 +46,30 @@ public class PostController {
     @PostMapping("/create")
     public String submitPost(@RequestParam (name="title") String title, @RequestParam (name="body") String body) {
         // we create an object that maps to the relational database table
-        Post post = new Post(title, body);
+        User user = userDao.findById(1);
+        Post post = new Post(title, body, user);
         postDao.save(post);
         return "redirect:/post/create/all-post";
     }
+
+    @GetMapping("/show/{id}")
+    public String showUser(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.findById(id));
+        return "/posts/show";
+    }
+
+//    @GetMapping("/user")
+//    public String showUserInfo(Model model){
+//        List<User> users = userDao.findAll();
+//        model.addAttribute("user", users);
+//        return "/posts/user";
+//    }
+//
+//    @PostMapping("/user")
+//    public String addUser(@RequestParam (name="username") String userName, @RequestParam (name="email") String email, @RequestParam (name="password") String password) {
+//        User user = new User(userName, email, password);
+//        userDao.save(user);
+//        return "redirect:/post/user";
+//    }
 
 }
