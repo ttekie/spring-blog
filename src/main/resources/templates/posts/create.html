@@ -7,12 +7,17 @@
 <body>
     <h2>Create a new post</h2>
     <form action="/post/create" method="post">
-        <lable for="post_title">Title:</lable>
-        <input type="text" name="title" id="post_title">
-        <br><br>
-        <label for="post_body">Blog:</label><br>
-        <textarea name="body" id="post_body" cols="60" rows="10"></textarea><br>
-        <input type="submit" name="submit">
+        <div>
+            <label for="post_title">Title:</label>
+            <input type="text" name="title" id="post_title">
+        </div>
+        <div>
+            <label for="post_body">Blog:</label><br>
+            <textarea name="body" id="post_body" cols="60" rows="10"></textarea>
+        </div>
+        <div>
+            <input type="submit" name="submit" value="Post">
+        </div>
     </form>
 </body>
 </html>

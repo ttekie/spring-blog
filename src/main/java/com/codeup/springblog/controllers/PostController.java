@@ -2,11 +2,11 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -14,9 +14,13 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postDao;
+
+    private final UserRepository userDao;
+
     // dependency injection
-    public PostController(PostRepository postDao) {
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/create/all-post")
@@ -26,13 +30,21 @@ public class PostController {
         return "posts/index";
     }
 
+    @GetMapping
+    public String onePost(@PathVariable long id, Model model) {
+        Post post = postDao.findById(id);
+        model.addAttribute("post", post);
+        return "/posts/show";
+    }
+
     @GetMapping("/create")
-    public String createNewPost() {
+    public String createPost() {
         return "posts/create";
     }
 
     @PostMapping("/create")
-    public String addNewPost(@RequestParam (name="title") String title, @RequestParam (name="body") String body) {
+    public String submitPost(@RequestParam (name="title") String title, @RequestParam (name="body") String body) {
+        // we create an object that maps to the relational database table
         Post post = new Post(title, body);
         postDao.save(post);
         return "redirect:/post/create/all-post";
