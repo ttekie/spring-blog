@@ -53,23 +53,23 @@ public class PostController {
     }
 
     @GetMapping("/show/{id}")
-    public String showUser(@PathVariable long id, Model model) {
+    public String showUserInfo(@PathVariable long id, Model model) {
         model.addAttribute("post", postDao.findById(id));
         return "/posts/show";
     }
 
-//    @GetMapping("/user")
-//    public String showUserInfo(Model model){
-//        List<User> users = userDao.findAll();
-//        model.addAttribute("user", users);
-//        return "/posts/user";
-//    }
-//
-//    @PostMapping("/user")
-//    public String addUser(@RequestParam (name="username") String userName, @RequestParam (name="email") String email, @RequestParam (name="password") String password) {
-//        User user = new User(userName, email, password);
-//        userDao.save(user);
-//        return "redirect:/post/user";
-//    }
+    @GetMapping("/posts/{id}/edit")
+    public String postForm(@PathVariable long id, Model model) {
+        model.addAttribute(postDao.findById(id));
+        return "/posts/create-post";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable long id, @ModelAttribute Post post) {
+        User user = userDao.findById(1);
+        post.setUser(user);
+        postDao.save(post);
+        return "redirect:/post/create/all-post";
+    }
 
 }
